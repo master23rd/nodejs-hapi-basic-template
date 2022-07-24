@@ -1,8 +1,14 @@
 const {
+  // eslint-disable-next-line max-len
   addNoteHandler, getAllNotesHandler, getNoteByIdHandler, editNoteByIdHandler, deleteNoteByIdHandler,
 } = require('./handler');
 
 const routes = [
+  {
+    method: 'GET',
+    path: '/',
+    handler: getAllNotesHandler,
+  },
   {
     method: 'POST',
     path: '/notes',
