@@ -17,7 +17,7 @@ const init = async () => {
 
   await server.start();
   // eslint-disable-next-line no-console
-  console.log('server is started');
+  console.log(`server is started in : ${server.host}`);
 };
 
 init();
