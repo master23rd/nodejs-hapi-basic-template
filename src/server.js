@@ -1,5 +1,6 @@
 const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
+const notesPlugin = require('./notesPlugin');
 
 const init = async () => {
   const server = Hapi.Server({
@@ -13,6 +14,11 @@ const init = async () => {
     },
   });
 
+  // register plugin hapi
+  await server.register([{
+    plugin: notesPlugin,
+    options: { notes: [] },
+  }]);
   server.route(routes);
 
   await server.start();
