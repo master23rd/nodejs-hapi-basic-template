@@ -1,5 +1,5 @@
 const { nanoid } = require('nanoid');
-const notes = require('./notes');
+const notes = require('../../services/inMemory/notes');
 
 // add note
 const addNoteHandler = (request, h) => {
