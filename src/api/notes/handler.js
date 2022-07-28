@@ -5,14 +5,17 @@
 class NotesHandler {
   constructor(service) {
     this._service = service;
+    this.postNoteHandler = this.postNoteHandler.bind(this);
+    this.getNotesHandler = this.getNotesHandler.bind(this);
+    this.getNoteByIdHandler = this.getNoteByIdHandler.bind(this);
+    this.putNoteByIdHandler = this.putNoteByIdHandler.bind(this);
+    this.deleteNoteByIdHandler = this.deleteNoteByIdHandler.bind(this);
   }
 
-  postHandler(request, h) {
+  postNoteHandler(request, h) {
     try {
       const { title = 'untitled', body, tags } = request.payload;
-      // const id = nanoid(16);
 
-      this._service.addNote({ title, body, tags });
       const noteId = this._service.addNote({ title, body, tags });
 
       const response = h.response({
@@ -35,7 +38,7 @@ class NotesHandler {
   }
 
   getNotesHandler() {
-    const notes = this._service.getNote();
+    const notes = this._service.getNotes();
     return {
       status: 'success',
       data: {
@@ -44,12 +47,12 @@ class NotesHandler {
     };
   }
 
-  getNoteByIdHandler(request) {
+  getNoteByIdHandler(request, h) {
     try {
       const { id } = request.params;
       const note = this._service.getNoteById(id);
       return {
-        status: 'succes',
+        status: 'success',
         data: {
           note,
         },
@@ -64,7 +67,7 @@ class NotesHandler {
     }
   }
 
-  putNoteByIdHandler(request) {
+  putNoteByIdHandler(request, h) {
     try {
       const { id } = request.params;
 
@@ -72,7 +75,7 @@ class NotesHandler {
 
       return {
         status: 'success',
-        message: 'catatan berhasil dirubah',
+        message: 'Catatan berhasil diperbarui',
       };
     } catch (error) {
       const response = h.response({
@@ -84,19 +87,18 @@ class NotesHandler {
     }
   }
 
-  deleteNoteByIdHandler(request) {
+  deleteNoteByIdHandler(request, h) {
     try {
-      const { id } = request.params
+      const { id } = request.params;
       this._service.deleteNoteById(id);
-
       return {
         status: 'success',
-        message: 'Catatan berhasil dihapus'
-      }
+        message: 'Catatan berhasil dihapus',
+      };
     } catch (error) {
       const response = h.response({
         status: 'fail',
-        message: error.message
+        message: 'Catatan gagal dihapus. Id tidak ditemukan',
       });
       response.code(404);
       return response;

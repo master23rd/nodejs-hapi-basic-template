@@ -1,4 +1,4 @@
-const handler = require('./handler');
+// const handler = require('./handler');
 
 const routes = (handler) => [
   {
@@ -32,6 +32,6 @@ const routes = (handler) => [
     path: '/notes/{id}',
     handler: handler.deleteNoteByIdHandler,
   },
-]
+];
 
 module.exports = routes;
