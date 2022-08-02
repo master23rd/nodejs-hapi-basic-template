@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 const { nanoid } = require('nanoid');
+const Bugsnag = require('@bugsnag/js');
 
 class NoteService {
   constructor() {
@@ -21,6 +22,7 @@ class NoteService {
 
     if (!isSuccess) {
       throw new Error('Catatan gagal ditambahkan');
+      // Bugsnag.notify(new Error('Test error'));
     }
 
     return id;
