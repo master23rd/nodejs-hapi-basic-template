@@ -21,7 +21,7 @@ const init = async () => {
     plugin: notes,
     options: {
       service: notesService,
-      validation: NotesValidator,
+      validator: NotesValidator,
     },
   });
 
